@@ -27,7 +27,7 @@ export const handler = () => async (ctx: Context) => {
     const bookings = await getTodayBookings();
     const message =
       bookings.length === 0
-        ? 'cвободно!! fuck yeah!!!!'
+        ? '🥳🥳🥳 fuck yeah!!!! сегодня все свободно!!'
         : `NOOOO😭😭!! короче седня лаундж занят ${formatEventsSummary(bookings)}😡`;
     await ctx.telegram.editMessageText(
       ctx.chat!.id,
