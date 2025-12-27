@@ -14,23 +14,23 @@ const production = async (
   bot: Telegraf<Context<Update>>,
 ) => {
   debug('Bot runs in production mode');
-  debug(`setting webhook: ${VERCEL_URL}`);
-
-  if (!VERCEL_URL) {
-    throw new Error('VERCEL_URL is not set.');
-  }
-  const webhookUrl = `https://${VERCEL_URL}/api`;
-
-  const getWebhookInfo = await bot.telegram.getWebhookInfo();
-
-  if (getWebhookInfo.url !== webhookUrl) {
-    debug(`setting webhook: ${webhookUrl}`);
-    await bot.telegram.setWebhook(webhookUrl);
-  }
 
   if (req.method === 'POST') {
     await bot.handleUpdate(req.body as unknown as Update, res);
   } else {
+    debug(`setting webhook: ${VERCEL_URL}`);
+
+    if (!VERCEL_URL) {
+      throw new Error('VERCEL_URL is not set.');
+    }
+    const webhookUrl = `https://${VERCEL_URL}/api`;
+
+    const getWebhookInfo = await bot.telegram.getWebhookInfo();
+
+    if (getWebhookInfo.url !== webhookUrl) {
+      debug(`setting webhook: ${webhookUrl}`);
+      await bot.telegram.setWebhook(webhookUrl);
+    }
     res.status(200).json('Listening to bot events...');
   }
   debug(`starting webhook on port: ${PORT}`);

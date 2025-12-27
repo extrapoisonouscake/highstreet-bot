@@ -9,7 +9,8 @@ const replyToMessage = (ctx: Context, messageId: number, string: string) =>
   ctx.reply(string, {
     reply_parameters: { message_id: messageId },
   });
-const KEYWORDS = ['бронировано', 'занят', 'свобод'];
+const LOUNGE_KEYWORDS = ['лаундж', 'лаунж'];
+const BOOK_KEYWORDS = ['бронировано', 'занят', 'свобод'];
 export const handler = () => async (ctx: Context) => {
   const messageId = ctx.message?.message_id;
   const text = ctx.text;
@@ -18,9 +19,9 @@ export const handler = () => async (ctx: Context) => {
   const lowerText = text.toLowerCase();
   if (
     lowerText.includes(`@${BOT_USERNAME}`) ||
-    (lowerText.includes('лаундж') &&
+    (LOUNGE_KEYWORDS.some((keyword) => lowerText.includes(keyword)) &&
       lowerText.includes('?') &&
-      KEYWORDS.some((keyword) => lowerText.includes(keyword)))
+      BOOK_KEYWORDS.some((keyword) => lowerText.includes(keyword)))
   ) {
     const pendingMessage = await replyToMessage(ctx, messageId, 'ща секунду');
     const bookings = await getTodayBookings();
