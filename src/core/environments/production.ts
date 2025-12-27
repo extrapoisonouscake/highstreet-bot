@@ -6,7 +6,7 @@ import { Update } from 'telegraf/typings/core/types/typegram';
 const debug = createDebug('bot:dev');
 
 const PORT = (process.env.PORT && parseInt(process.env.PORT, 10)) || 3000;
-const VERCEL_URL = `${process.env.VERCEL_URL}`;
+const VERCEL_URL = `${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
 
 const production = async (
   req: VercelRequest,
@@ -20,9 +20,9 @@ const production = async (
     throw new Error('VERCEL_URL is not set.');
   }
   const webhookUrl = `https://${VERCEL_URL}/api`;
-  console.log(webhookUrl, req.body, process.env.BOT_TOKEN);
+
   const getWebhookInfo = await bot.telegram.getWebhookInfo();
-  console.log(getWebhookInfo, webhookUrl);
+
   if (getWebhookInfo.url !== webhookUrl) {
     debug(`setting webhook: ${webhookUrl}`);
     await bot.telegram.setWebhook(webhookUrl);
