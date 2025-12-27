@@ -19,13 +19,13 @@ const production = async (
   if (!VERCEL_URL) {
     throw new Error('VERCEL_URL is not set.');
   }
-
+  const webhookUrl = VERCEL_URL + '/api';
+  console.log(webhookUrl, req.body);
   const getWebhookInfo = await bot.telegram.getWebhookInfo();
-  if (getWebhookInfo.url !== VERCEL_URL + '/api') {
-    debug(`deleting webhook ${VERCEL_URL}`);
-    await bot.telegram.deleteWebhook();
-    debug(`setting webhook: ${VERCEL_URL}/api`);
-    await bot.telegram.setWebhook(`${VERCEL_URL}/api`);
+  console.log(getWebhookInfo, webhookUrl);
+  if (getWebhookInfo.url !== webhookUrl) {
+    debug(`setting webhook: ${webhookUrl}`);
+    await bot.telegram.setWebhook(webhookUrl);
   }
 
   if (req.method === 'POST') {
