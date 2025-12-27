@@ -1,14 +1,14 @@
 {
-  "name": "telegram-bot-vercel-boilerplate",
-  "version": "1.1.0",
-  "description": "Telegram Bot Vercel Boilerplate",
+  "name": "highstreet",
+  "version": "0.0.1",
   "main": "src/index.ts",
-  "author": "Mark Pavlov (https://github.com/sollidy)",
-  "homepage": "https://github.com/sollidy/telegram-bot-vercel-boilerplate",
   "dependencies": {
+    "@ts-ics/schema-zod": "^2.4.0",
     "@vercel/node": "^5.1.16",
+    "dayjs": "^1.11.19",
     "dotenv-cli": "^8.0.0",
-    "telegraf": "^4.16.3"
+    "telegraf": "^4.16.3",
+    "ts-ics": "^2.4.0"
   },
   "devDependencies": {
     "@types/debug": "^4.1.12",
